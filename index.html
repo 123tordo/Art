@@ -1,72 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Quiz</title>
+    <title>Art Quiz</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            padding: 20px;
-            background-color: #333;
-            color: #fff;
-            transition: background-color 1s ease;
-        }
-
         #question-container {
-            max-width: 600px;
-            margin: auto;
-            border: 2px solid #ff4500;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #444;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            display: none; /* Initially hide the question container */
-        }
-
-        h2 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #ff4500;
-        }
-
-        p {
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        #answer {
-            color: yellow; /* Set answer text color to yellow */
-        }
-
-        #countdown {
-            font-size: 18px;
-            color: #ff4500;
+            display: none;
         }
     </style>
 </head>
-
 <body>
-    <div id="question-container">
-        <h2>Art Quiz Question</h2>
-        <p id="question"></p>
-        <p id="countdown"></p>
-        <p id="answer" style="display:none;"></p>
-    </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const questionContainer = document.getElementById("question-container");
-            const questionElement = document.getElementById("question");
-            const answerElement = document.getElementById("answer");
-            const countdownElement = document.getElementById("countdown");
+<div id="question-container">
+    <h1 id="question"></h1>
+    <p id="answer"></p>
+    <p id="countdown"></p>
+</div>
 
-            const ArtQuiz = [
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const questionContainer = document.getElementById("question-container");
+        const questionElement = document.getElementById("question");
+        const answerElement = document.getElementById("answer");
+        const countdownElement = document.getElementById("countdown");
 
-   {
+        const allArtQuestions = [   {
     question: "Quem pintou 'A Persistência da Memória' com relógios derretendo?",
     answer: "Salvador Dalí"
   },
@@ -314,61 +273,53 @@
   {
     question: "Qual é o nome do movimento artístico que celebra o cotidiano e a cultura popular?",
     answer: "Pop Art"
-  },
-];
+  },];
 
+        const usedIndices = [];
 
-            function displayRandomQuestion() {
-        if (usedIndices.length >= ArtQuiz.length) {
-            // All questions have been used, reset the used indices array
-            usedIndices.length = 0;
-        }
-
-        let randomIndex;
-        do {
-            randomIndex = Math.floor(Math.random() * rockQuiz.length);
-        } while (usedIndices.includes(randomIndex));
-
-        usedIndices.push(randomIndex);
-
-        const currentQuestion = ArtQuiz[randomIndex];
-
-
-                // Display the question
-                questionElement.textContent = currentQuestion.question;
-
-                // Show the question container
-                questionContainer.style.display = "block";
-
-                // Set a timeout to hide the question after 10 seconds
-                let secondsLeft = 10;
-                countdownElement.textContent = `Tempo restante: ${secondsLeft}s`;
-                const countdownInterval = setInterval(() => {
-                    secondsLeft--;
-
-                    if (secondsLeft >= 0) {
-                        countdownElement.textContent = `Tempo restante: ${secondsLeft}s`;
-                    } else {
-                        clearInterval(countdownInterval);
-                        countdownElement.textContent = ""; // Hide countdown after it reaches 0
-
-                        // Display the answer
-                        answerElement.textContent = `Resposta: ${currentQuestion.answer}`;
-                        answerElement.style.display = "block";
-
-                        // Set a timeout to replace the page content after 10 seconds
-                        setTimeout(() => {
-                            document.body.innerHTML = "<h1>Lance o dado outra vez</h1>";
-                        }, 10000); // 10 seconds for displaying the answer
-                    }
-                }, 1000); // Update countdown every second
+        function displayRandomQuestion() {
+            if (usedIndices.length >= allArtQuestions.length) {
+                usedIndices.length = 0;
             }
 
-            // Initial call to start the quiz
-            displayRandomQuestion();
-        });
-    </script>
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * allArtQuestions.length);
+            } while (usedIndices.includes(randomIndex));
+
+            usedIndices.push(randomIndex);
+
+            const currentQuestion = allArtQuestions[randomIndex];
+
+            questionElement.textContent = currentQuestion.question;
+            questionContainer.style.display = "block";
+
+            let secondsLeft = 10;
+            countdownElement.textContent = `Tempo restante: ${secondsLeft}s`;
+
+            const countdownInterval = setInterval(() => {
+                secondsLeft--;
+
+                if (secondsLeft >= 0) {
+                    countdownElement.textContent = `Tempo restante: ${secondsLeft}s`;
+                } else {
+                    clearInterval(countdownInterval);
+                    countdownElement.textContent = "";
+
+                    answerElement.textContent = `Resposta: ${currentQuestion.answer}`;
+                    answerElement.style.display = "block";
+
+                    setTimeout(() => {
+                        // Replace the content after 10 seconds
+                        document.body.innerHTML = "<h1>Lance o dado outra vez</h1>";
+                    }, 10000);
+                }
+            }, 1000);
+        }
+
+        displayRandomQuestion(); // Initial call to start the quiz
+    });
+</script>
+
 </body>
-
 </html>
-
