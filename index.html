@@ -21,7 +21,7 @@
 
         #question-container {
             padding: 20px;
-            border: 2px solid #3498db; /* Blue border color */
+            border: 2px solid #e74c3c; /* Red border color */
             border-radius: 10px; /* Rounded corners */
             background-color: #2c3e50; /* Dark grey background color */
         }
@@ -35,6 +35,10 @@
         #countdown {
             margin-top: 10px;
         }
+
+        .answer {
+            color: yellow; /* Yellow color for answers */
+        }
     </style>
 </head>
 <body>
@@ -46,7 +50,8 @@
 
         document.body.appendChild(questionContainer);
 
-        const allArtQuestions = [{
+        const allArtQuestions = [
+            {
     question: "Quem pintou 'A Persistência da Memória' com relógios derretendo?",
     answer: "Salvador Dalí"
   },
@@ -294,7 +299,8 @@
   {
     question: "Qual é o nome do movimento artístico que celebra o cotidiano e a cultura popular?",
     answer: "Pop Art"
-  },];
+  },
+        ];
 
         function displayRandomQuestion() {
             const randomIndex = Math.floor(Math.random() * allArtQuestions.length);
@@ -316,7 +322,7 @@
                     clearInterval(countdownInterval);
 
                     // Show the answer for 10 seconds
-                    questionContainer.innerHTML += `<h1>Resposta: ${currentQuestion.answer}</h1>`;
+                    questionContainer.innerHTML += `<h1 class="answer">Resposta: ${currentQuestion.answer}</h1>`;
                     setTimeout(() => {
                         // Show "Lance o dado outra vez" for 10 seconds
                         questionContainer.innerHTML = "<h1>Lance o dado outra vez</h1>";
