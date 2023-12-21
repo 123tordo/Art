@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Quiz</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            transition: background-color 1s ease;
+        }
+
+        #question-container {
+            max-width: 600px;
+            margin: auto;
+            border: 2px solid #ff4500;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #444;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: none; /* Initially hide the question container */
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #ff4500;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        #answer {
+            color: yellow; /* Set answer text color to yellow */
+        }
+
+        #countdown {
+            font-size: 18px;
+            color: #ff4500;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="question-container">
+        <h2>Art Quiz Question</h2>
+        <p id="question"></p>
+        <p id="countdown"></p>
+        <p id="answer" style="display:none;"></p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const questionContainer = document.getElementById("question-container");
+            const questionElement = document.getElementById("question");
+            const answerElement = document.getElementById("answer");
+            const countdownElement = document.getElementById("countdown");
+
+            const rockQuiz = [
+
+   {
+    question: "Quem pintou 'A Persistência da Memória' com relógios derretendo?",
+    answer: "Salvador Dalí"
+  },
+  {
+    question: "Qual pintor holandês é conhecido por 'A Ronda Noturna'?",
+    answer: "Rembrandt"
+  },
+  {
+    question: "Em que cidade está localizado o famoso museu de arte 'O Louvre'?",
+    answer: "Paris"
+  },
+  {
+    question: "Quem pintou 'Les Demoiselles d'Avignon,' uma obra inovadora na arte moderna?",
+    answer: "Pablo Picasso"
+  },
+  {
+    question: "Qual movimento artístico apresenta formas geométricas e cores primárias?",
+    answer: "De Stijl"
+  },
+  // ... add more art-related questions
+
+  // Sculpture Questions
+  {
+    question: "Quem esculpiu 'David', uma obra-prima da escultura renascentista?",
+    answer: "Michelangelo"
+  },
+  {
+    question: "Qual escultor grego antigo criou a estátua 'Vitória de Samotrácia'?",
+    answer: "Desconhecido (Nike de Samotrácia)"
+  },
+  {
+    question: "Em que país está localizada a famosa escultura 'Cristo Redentor'?",
+    answer: "Brasil"
+  },
+  {
+    question: "Quem é conhecido por criar o mobile, um tipo de escultura cinética?",
+    answer: "Alexander Calder"
+  },
+  {
+    question: "Qual artista é famoso por suas instalações ao ar livre em grande escala, como 'The Gates'?",
+    answer: "Christo e Jeanne-Claude"
+  },
+  // ... add more art-related questions
+
+  // Art History Questions
+  {
+    question: "Qual movimento artístico rejeitou representações realistas em favor da abstração?",
+    answer: "Expressionismo Abstrato"
+  },
+  {
+    question: "Que artista renascentista é conhecido por seus esboços e inventos científicos?",
+    answer: "Leonardo da Vinci"
+  },
+  {
+    question: "Quem fundou a escola de design, arte e arquitetura Bauhaus?",
+    answer: "Walter Gropius"
+  },
+  {
+    question: "Qual civilização antiga é conhecida por sua cerâmica intricada, frequentemente apresentando figuras pretas em fundo vermelho?",
+    answer: "Grécia Antiga"
+  },
+  {
+    question: "Qual é o termo para uma pintura ou obra de arte criada diretamente em uma parede?",
+    answer: "Mural"
+  },
+  // ... add more art-related questions
+
+  // Art Movements Questions
+  {
+    question: "Qual movimento artístico visava representar a vida cotidiana das pessoas comuns?",
+    answer: "Realismo"
+  },
+  {
+    question: "Em que século surgiu o movimento impressionista?",
+    answer: "Século XIX"
+  },
+  {
+    question: "Quem é considerado o líder do movimento surrealista?",
+    answer: "André Breton"
+  },
+  {
+    question: "Qual movimento artístico procurava capturar a velocidade e dinamismo da vida moderna?",
+    answer: "Futurismo"
+  },
+  {
+    question: "Qual é o termo para um estilo de arte que enfatiza formas geométricas e abstração?",
+    answer: "Abstração Geométrica"
+  },
+];
+
+
+            function displayRandomQuestion() {
+                const randomIndex = Math.floor(Math.random() * rockQuiz.length);
+                const currentQuestion = rockQuiz[randomIndex];
+
+                // Display the question
+                questionElement.textContent = currentQuestion.question;
+
+                // Show the question container
+                questionContainer.style.display = "block";
+
+                // Set a timeout to hide the question after 10 seconds
+                let secondsLeft = 10;
+                countdownElement.textContent = `Tempo restante: ${secondsLeft}s`;
+                const countdownInterval = setInterval(() => {
+                    secondsLeft--;
+
+                    if (secondsLeft >= 0) {
+                        countdownElement.textContent = `Tempo restante: ${secondsLeft}s`;
+                    } else {
+                        clearInterval(countdownInterval);
+                        countdownElement.textContent = ""; // Hide countdown after it reaches 0
+
+                        // Display the answer
+                        answerElement.textContent = `Resposta: ${currentQuestion.answer}`;
+                        answerElement.style.display = "block";
+
+                        // Set a timeout to replace the page content after 10 seconds
+                        setTimeout(() => {
+                            document.body.innerHTML = "<h1>Lance o dado outra vez</h1>";
+                        }, 10000); // 10 seconds for displaying the answer
+                    }
+                }, 1000); // Update countdown every second
+            }
+
+            // Initial call to start the quiz
+            displayRandomQuestion();
+        });
+    </script>
+</body>
+
+</html>
