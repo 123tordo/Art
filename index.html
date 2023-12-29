@@ -51,253 +51,255 @@
         document.body.appendChild(questionContainer);
 
         const allArtQuestions = [
-           {
-    question: "Quem pintou 'A Persistência da Memória' com relógios derretendo?",
+            {
+    question: "Who painted 'The Persistence of Memory' with melting clocks?",
     answer: "Salvador Dalí"
   },
   {
-    question: "Qual pintor holandês é conhecido por 'A Ronda Noturna'?",
+    question: "Which Dutch painter is known for 'The Night Watch'?",
     answer: "Rembrandt"
   },
   {
-    question: "Em que cidade está localizado o famoso museu de arte 'O Louvre'?",
+    question: "In which city is the famous art museum 'The Louvre' located?",
     answer: "Paris"
   },
   {
-    question: "Quem pintou 'Les Demoiselles d'Avignon,' uma obra inovadora na arte moderna?",
+    question: "Who painted 'Les Demoiselles d'Avignon,' an innovative work in modern art?",
     answer: "Pablo Picasso"
   },
   {
-    question: "Qual movimento artístico apresenta formas geométricas e cores primárias?",
+    question: "Which artistic movement features geometric shapes and primary colors?",
     answer: "De Stijl"
   },
   
   {
-    question: "Quem esculpiu 'David', uma obra-prima da escultura renascentista?",
+    question: "Who sculpted 'David,' a masterpiece of Renaissance sculpture?",
     answer: "Michelangelo"
   },
   {
-    question: "Qual escultor grego antigo criou a estátua 'Vitória de Samotrácia'?",
-    answer: "Desconhecido (Nike de Samotrácia)"
+    question: "Which ancient Greek sculptor created the statue 'Winged Victory of Samothrace'?",
+    answer: "Unknown (Nike of Samothrace)"
   },
   {
-    question: "Em que país está localizada a famosa escultura 'Cristo Redentor'?",
-    answer: "Brasil"
+    question: "In which country is the famous sculpture 'Christ the Redeemer' located?",
+    answer: "Brazil"
   },
   {
-    question: "Quem é conhecido por criar o mobile, um tipo de escultura cinética?",
+    question: "Who is known for creating the mobile, a type of kinetic sculpture?",
     answer: "Alexander Calder"
   },
   {
-    question: "Qual artista é famoso por suas instalações ao ar livre em grande escala, como 'The Gates'?",
-    answer: "Christo e Jeanne-Claude"
+    question: "Which artist is famous for large-scale outdoor installations like 'The Gates'?",
+    answer: "Christo and Jeanne-Claude"
   },
   
   {
-    question: "Qual movimento artístico rejeitou representações realistas em favor da abstração?",
-    answer: "Expressionismo Abstrato"
+    question: "Which artistic movement rejected realistic representations in favor of abstraction?",
+    answer: "Abstract Expressionism"
   },
   {
-    question: "Que artista renascentista é conhecido por seus esboços e inventos científicos?",
+    question: "Which Renaissance artist is known for his sketches and scientific inventions?",
     answer: "Leonardo da Vinci"
   },
   {
-    question: "Quem fundou a escola de design, arte e arquitetura Bauhaus?",
+    question: "Who founded the Bauhaus school of design, art, and architecture?",
     answer: "Walter Gropius"
   },
   {
-    question: "Qual civilização antiga é conhecida por sua cerâmica intricada, frequentemente apresentando figuras pretas em fundo vermelho?",
-    answer: "Grécia Antiga"
+    question: "Which ancient civilization is known for its intricate ceramics, often featuring black figures on a red background?",
+    answer: "Ancient Greece"
   },
   {
-    question: "Qual é o termo para uma pintura ou obra de arte criada diretamente em uma parede?",
+    question: "What is the term for a painting or artwork created directly on a wall?",
     answer: "Mural"
   },
   
   {
-    question: "Qual movimento artístico visava representar a vida cotidiana das pessoas comuns?",
-    answer: "Realismo"
+    question: "Which artistic movement aimed to represent the everyday life of ordinary people?",
+    answer: "Realism"
   },
   {
-    question: "Em que século surgiu o movimento impressionista?",
-    answer: "Século XIX"
+    question: "In which century did the Impressionist movement emerge?",
+    answer: "19th century"
   },
   {
-    question: "Quem é considerado o líder do movimento surrealista?",
+    question: "Who is considered the leader of the Surrealist movement?",
     answer: "André Breton"
   },
   {
-    question: "Qual movimento artístico procurava capturar a velocidade e dinamismo da vida moderna?",
-    answer: "Futurismo"
+    question: "Which artistic movement sought to capture the speed and dynamism of modern life?",
+    answer: "Futurism"
   },
   {
-    question: "Qual é o termo para um estilo de arte que enfatiza formas geométricas e abstração?",
-    answer: "Abstração Geométrica"
+    question: "What is the term for an art style that emphasizes geometric shapes and abstraction?",
+    answer: "Geometric Abstraction"
   },
-                {
-    question: "Quem pintou 'A Última Ceia'?",
+  
+  {
+    question: "Who painted 'The Last Supper'?",
     answer: "Leonardo da Vinci"
   },
   {
-    question: "Qual é a obra de arte mais famosa de Vincent van Gogh?",
-    answer: "A Noite Estrelada"
+    question: "What is Vincent van Gogh's most famous artwork?",
+    answer: "'Starry Night'"
   },
   {
-    question: "Quem é o pintor da 'Mona Lisa'?",
+    question: "Who is the painter of the 'Mona Lisa'?",
     answer: "Leonardo da Vinci"
   },
   {
-    question: "Qual é a pintura mais famosa de Pablo Picasso?",
-    answer: "Les Demoiselles d'Avignon"
+    question: "What is the most famous painting by Pablo Picasso?",
+    answer: "'Les Demoiselles d'Avignon'"
   },
   {
-    question: "Quem pintou 'A Persistência da Memória' com relógios derretendo?",
+    question: "Who painted 'The Persistence of Memory' with melting clocks?",
     answer: "Salvador Dalí"
   },
   
   {
-    question: "Quem esculpiu 'O Pensador'?",
+    question: "Who sculpted 'The Thinker'?",
     answer: "Auguste Rodin"
   },
   {
-    question: "Qual é a escultura famosa da Deusa Nike exibida no Louvre?",
-    answer: "Vitória de Samotrácia"
+    question: "What is the famous sculpture of the Goddess Nike displayed at the Louvre?",
+    answer: "'Winged Victory of Samothrace'"
   },
   {
-    question: "Onde está localizada a estátua da 'Pietà' de Michelangelo?",
-    answer: "Basílica de São Pedro, Vaticano"
+    question: "Where is Michelangelo's 'Pietà' sculpture located?",
+    answer: "St. Peter's Basilica, Vatican City"
   },
   {
-    question: "Quem criou a escultura 'O Beijo'?",
+    question: "Who created the sculpture 'The Kiss'?",
     answer: "Auguste Rodin"
   },
   {
-    question: "Qual é o nome da escultura que representa um homem sem braços?",
-    answer: "Vênus de Milo"
+    question: "What is the name of the sculpture representing a man without arms?",
+    answer: "'Venus de Milo'"
   },
   
   {
-    question: "Quem é conhecido como o 'Pai da Pintura Moderna'?",
+    question: "Who is known as the 'Father of Modern Painting'?",
     answer: "Édouard Manet"
   },
   {
-    question: "Em que período artístico surgiu a Renascença?",
-    answer: "Século XIV a XVI"
+    question: "In which artistic period did the Renaissance occur?",
+    answer: "14th to 16th centuries"
   },
   {
-    question: "Quem pintou as 'Meninas'?",
+    question: "Who painted 'Las Meninas'?",
     answer: "Diego Velázquez"
   },
   {
-    question: "Qual é a arte japonesa de dobrar papel para criar figuras?",
+    question: "What is the Japanese art of folding paper to create figures?",
     answer: "Origami"
   },
   {
-    question: "Quem é considerado o mestre do retrato renascentista?",
-    answer: "Hans Holbein, o Jovem"
+    question: "Who is considered the master of Renaissance portraiture?",
+    answer: "Hans Holbein the Younger"
   },
   
   {
-    question: "Qual movimento artístico foi marcado por obras que representam a vida cotidiana?",
-    answer: "Realismo"
+    question: "Which artistic movement was marked by works representing everyday life?",
+    answer: "Realism"
   },
   {
-    question: "Em que século surgiu o Impressionismo?",
-    answer: "Século XIX"
+    question: "In which century did Impressionism emerge?",
+    answer: "19th century"
   },
   {
-    question: "Quem é conhecido por seus autorretratos, especialmente com a orelha cortada?",
+    question: "Who is known for his self-portraits, especially with the cut-off ear?",
     answer: "Vincent van Gogh"
   },
   {
-    question: "Qual é o nome do movimento artístico que se concentra na representação de emoções e reações sensoriais?",
-    answer: "Expressionismo"
+    question: "What is the name of the artistic movement that focuses on representing emotions and sensory reactions?",
+    answer: "Expressionism"
   },
   {
-    question: "Quem é a figura principal do movimento surrealista?",
+    question: "Who is the key figure of the Surrealist movement?",
     answer: "André Breton"
   },
-                {
-    question: "Quem pintou 'Guernica,' uma obra que representa os horrores da Guerra Civil Espanhola?",
+  
+  {
+    question: "Who painted 'Guernica,' a work representing the horrors of the Spanish Civil War?",
     answer: "Pablo Picasso"
   },
   {
-    question: "Qual é a pintura mais conhecida de Edward Hopper, retratando pessoas em um café noturno?",
-    answer: "Nighthawks"
+    question: "What is the most well-known painting by Edward Hopper, depicting people in a nighttime cafe?",
+    answer: "'Nighthawks'"
   },
   {
-    question: "Quem é o pintor impressionista conhecido por suas séries de nenúfares?",
+    question: "Who is the Impressionist painter known for his series of water lilies?",
     answer: "Claude Monet"
   },
   {
-    question: "Qual é o nome da pintura que retrata um casal dançando sob um manto azul estrelado?",
-    answer: "A Noite Estrelada"
+    question: "What is the name of the painting depicting a couple dancing under a starry blue mantle?",
+    answer: "'Starry Night'"
   },
   {
-    question: "Quem pintou 'A Banhista' e 'A Leitura'?",
+    question: "Who painted 'The Bather' and 'Reading'?",
     answer: "Pierre-Auguste Renoir"
   },
   
   {
-    question: "Quem é o escultor modernista conhecido por suas formas abstratas e curvilíneas?",
+    question: "Who is the modernist sculptor known for abstract and curvilinear forms?",
     answer: "Henry Moore"
   },
   {
-    question: "Qual é o nome da estátua que representa um homem nu com um pensamento profundo?",
-    answer: "O Pensador"
+    question: "What is the name of the statue representing a naked man in deep thought?",
+    answer: "'The Thinker'"
   },
   {
-    question: "Quem esculpiu o famoso grupo escultórico 'Os Amantes'?",
+    question: "Who sculpted the famous sculptural group 'The Lovers'?",
     answer: "Constantin Brâncuși"
   },
   {
-    question: "Qual é a escultura em Chicago que é apelidada de 'Feijão'?",
-    answer: "Cloud Gate (por Anish Kapoor)"
+    question: "What is the sculpture in Chicago that is nicknamed 'The Bean'?",
+    answer: "'Cloud Gate' (by Anish Kapoor)"
   },
   {
-    question: "Quem é conhecido por suas esculturas cinéticas que se movem com o vento?",
+    question: "Who is known for kinetic sculptures that move with the wind?",
     answer: "Alexander Calder"
   },
   
   {
-    question: "Qual artista holandês é famoso por suas pinturas de paisagens com moinhos de vento?",
+    question: "Which Dutch artist is famous for paintings of landscapes with windmills?",
     answer: "Vincent van Gogh"
   },
   {
-    question: "Em que país nasceu o famoso artista contemporâneo Yayoi Kusama?",
-    answer: "Japão"
+    question: "In which country was the famous contemporary artist Yayoi Kusama born?",
+    answer: "Japan"
   },
   {
-    question: "Quem é conhecido por suas pinturas religiosas, incluindo 'O Nascimento de Vênus'?",
+    question: "Who is known for religious paintings, including 'The Birth of Venus'?",
     answer: "Sandro Botticelli"
   },
   {
-    question: "Qual é o nome do movimento artístico que inclui obras como 'Nude Descending a Staircase, No. 2'?",
-    answer: "Cubismo"
+    question: "What is the name of the artistic movement that includes works like 'Nude Descending a Staircase, No. 2'?",
+    answer: "Cubism"
   },
   {
-    question: "Quem é a pintora mexicana conhecida por suas obras com temas sociais e políticos?",
+    question: "Who is the Mexican painter known for works with social and political themes?",
     answer: "Frida Kahlo"
   },
   
   {
-    question: "Qual movimento artístico enfatiza a espontaneidade e a expressão emocional?",
-    answer: "Expressionismo Abstrato"
+    question: "Which artistic movement emphasizes spontaneity and emotional expression?",
+    answer: "Abstract Expressionism"
   },
   {
-    question: "Quem é o fundador do movimento Dada, conhecido por suas obras antiarte?",
+    question: "Who is the founder of the Dada movement, known for anti-art works?",
     answer: "Marcel Duchamp"
   },
   {
-    question: "Em que cidade italiana surgiu o movimento artístico Barroco?",
-    answer: "Roma"
+    question: "In which Italian city did the Baroque artistic movement originate?",
+    answer: "Rome"
   },
   {
-    question: "Quem é considerado o pioneiro do Pop Art?",
+    question: "Who is considered the pioneer of Pop Art?",
     answer: "Andy Warhol"
   },
   {
-    question: "Qual é o nome do movimento artístico que celebra o cotidiano e a cultura popular?",
+    question: "What is the name of the artistic movement that celebrates everyday life and popular culture?",
     answer: "Pop Art"
   },
         ];
