@@ -3,49 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Scanner</title>
+    <title>Final Message</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: black; /* Black background color */
+            color: #ecf0f1; /* Light grey text color */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-
-<script src="https://cdn.rawgit.com/cozmo/jsQR/master/dist/jsQR.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const videoElement = document.createElement('video');
-        document.body.appendChild(videoElement);
-
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-            .then(function (stream) {
-                videoElement.srcObject = stream;
-
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-
-                videoElement.addEventListener('loadedmetadata', function () {
-                    canvas.width = videoElement.videoWidth;
-                    canvas.height = videoElement.videoHeight;
-                });
-
-                const decodeFrame = function () {
-                    context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-
-                    const code = jsQR(imageData.data, imageData.width, imageData.height);
-
-                    if (code) {
-                        console.log('Decoded QR code:', code.data);
-                        // Handle the decoded result (e.g., redirect to a URL)
-                    }
-
-                    requestAnimationFrame(decodeFrame);
-                };
-
-                decodeFrame();
-            })
-            .catch(function (error) {
-                console.error('Error accessing camera:', error);
-            });
-    });
-</script>
-
+    <h1>Lança o dado outra vez e lê o código para um novo desafio</h1>
 </body>
 </html>
