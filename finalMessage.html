@@ -47,44 +47,33 @@
     document.addEventListener("DOMContentLoaded", function () {
         const videoElement = document.getElementById('video');
 
-        // Function to force the use of the back camera
-        function initializeBackCamera() {
-            Instascan.Camera.getCameras().then(function (cameras) {
+        // Check if getUserMedia is available
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.enumerateDevices().then(devices => {
+                const cameras = devices.filter(device => device.kind === 'videoinput');
                 if (cameras.length > 0) {
-                    const backCamera = cameras.find(camera => camera.name.includes('back') || camera.label.includes('back'));
-                    if (backCamera) {
-                        // Initialize Instascan with the back camera
-                        const scanner = new Instascan.Scanner({ video: videoElement });
-                        scanner.addListener('scan', function (content) {
-                            // Handle the scanned content here
-                            alert('Scanned: ' + content);
-                            // Redirect to the scanned URL
-                            window.location.href = content;
-                        });
+                    const rearCamera = cameras.find(camera => camera.label.includes('back') || camera.label.includes('rear'));
+                    const selectedCamera = rearCamera || cameras[0];
 
-                        scanner.start(backCamera);
-                    } else {
-                        console.error('Back camera not found.');
-                    }
+                    navigator.mediaDevices.getUserMedia({ video: { deviceId: selectedCamera.deviceId } })
+                        .then(function (stream) {
+                            videoElement.srcObject = stream;
+
+                            const scanner = new Instascan.Scanner({ video: videoElement });
+                            scanner.addListener('scan', function (content) {
+                                alert('Scanned: ' + content);
+                                // You can use the scanned content as needed.
+                            });
+
+                            scanner.start(selectedCamera);
+                        })
+                        .catch(function (error) {
+                            console.error('Error accessing camera:', error);
+                        });
                 } else {
                     console.error('No cameras found.');
                 }
-            }).catch(function (error) {
-                console.error('Error accessing cameras:', error);
             });
-        }
-
-        // Check if getUserMedia is available
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function (stream) {
-                    videoElement.srcObject = stream;
-                    // Initialize the back camera after accessing the front camera
-                    initializeBackCamera();
-                })
-                .catch(function (error) {
-                    console.error('Error accessing camera:', error);
-                });
         } else {
             console.error('getUserMedia is not supported in this browser');
         }
