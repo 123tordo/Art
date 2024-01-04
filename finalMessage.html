@@ -16,7 +16,7 @@
             background-color: black; /* Black background color */
             color: #ecf0f1; /* Light grey text color */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 18px;
+            font-size: 28px;
             text-align: center;
         }
 
@@ -26,6 +26,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         video {
@@ -35,12 +36,33 @@
             border-radius: 10px; /* Rounded corners */
             background-color: #2c3e50; /* Dark grey background color */
         }
+
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #3498db; /* Blue color for scan line */
+            animation: scanAnimation 2s linear infinite;
+        }
+
+        @keyframes scanAnimation {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100%);
+            }
+        }
     </style>
+
+    <!-- Add the instascan library -->
+    <script src="https://cdn.rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 </head>
 <body>
 
 <div id="video-container">
     <video id="video" autoplay playsinline></video>
+    <div class="scan-line"></div>
 </div>
 
 <script>
@@ -49,9 +71,28 @@
 
         // Check if getUserMedia is available
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }) // Use back camera
                 .then(function (stream) {
                     videoElement.srcObject = stream;
+
+                    // Initialize Instascan
+                    const scanner = new Instascan.Scanner({ video: videoElement });
+                    scanner.addListener('scan', function (content) {
+                        alert('Scanned: ' + content);
+                    });
+
+                    // Start scanning
+                    Instascan.Camera.getCameras()
+                        .then(function (cameras) {
+                            if (cameras.length > 0) {
+                                scanner.start(cameras[0]); // Use the first camera
+                            } else {
+                                console.error('No cameras found.');
+                            }
+                        })
+                        .catch(function (error) {
+                            console.error('Error accessing cameras:', error);
+                        });
                 })
                 .catch(function (error) {
                     console.error('Error accessing camera:', error);
