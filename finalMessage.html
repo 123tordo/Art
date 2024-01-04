@@ -1,47 +1,29 @@
+<script src="https://cdn.rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const videoElement = document.getElementById('video');
 
-        // Check if getUserMedia is available
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function (stream) {
-                    videoElement.srcObject = stream;
+        // Check if Instascan is available
+        if (Instascan.Camera.getCameras().length > 0) {
+            const scanner = new Instascan.Scanner({ video: videoElement });
 
-                    // Initialize QuaggaJS
-                    Quagga.init({
-                        inputStream: {
-                            name: "Live",
-                            type: "LiveStream",
-                            target: videoElement
-                        },
-                        decoder: {
-                            readers: ["code_128_reader"]
-                        }
-                    }, function (err) {
-                        if (err) {
-                            console.error('Error initializing Quagga:', err);
-                            return;
-                        }
-                        Quagga.start();
-                    });
+            Instascan.Camera.getCameras().then(cameras => {
+                if (cameras.length > 1) {
+                    scanner.start(cameras[1]); // Use the back camera (assuming it's the second camera in the list)
+                } else {
+                    scanner.start(cameras[0]); // Use the only available camera
+                }
+            }).catch(error => {
+                console.error('Error getting cameras:', error);
+            });
 
-                    // Attach click event directly to the video element to start scanning
-                    videoElement.addEventListener('click', function () {
-                        Quagga.start();
-                    });
-
-                    Quagga.onDetected(function (result) {
-                        alert('Scanned: ' + result.codeResult.code);
-                        // You can navigate to the destination site here
-                        // window.location.href = result.codeResult.code;
-                    });
-                })
-                .catch(function (error) {
-                    console.error('Error accessing camera:', error);
-                });
+            scanner.addListener('scan', function (content) {
+                alert('Scanned: ' + content);
+                // You can navigate to the destination site here
+                // window.location.href = content;
+            });
         } else {
-            console.error('getUserMedia is not supported in this browser');
+            console.error('Instascan is not available');
         }
     });
 </script>
