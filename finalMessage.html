@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Final Message</title>
+    <title>QR Code Scanner</title>
     <style>
         body {
             margin: 0;
@@ -42,38 +42,58 @@
     <video id="video" autoplay playsinline></video>
 </div>
 
-<script src="https://cdn.rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
+<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr.js"></script>
+<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/findpat.js"></script>
+<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/alignpat.js"></script>
+<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/databr.js"></script>
+<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/version.js"></script>
+<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/databr-patch.js"></script>
+<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qrdecode.js"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const videoElement = document.getElementById('video');
 
         // Check if getUserMedia is available
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.enumerateDevices().then(devices => {
-                const cameras = devices.filter(device => device.kind === 'videoinput');
-                if (cameras.length > 0) {
-                    const rearCamera = cameras.find(camera => camera.label.includes('back') || camera.label.includes('rear'));
-                    const selectedCamera = rearCamera || cameras[0];
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    videoElement.srcObject = stream;
+                    
+                    const decodeCallback = function (result) {
+                        if (result instanceof Error) {
+                            console.error('Error decoding QR code:', result.message);
+                        } else {
+                            // Handle the decoded result
+                            console.log('Decoded QR code:', result);
+                            // You can redirect to the desired URL or perform other actions with the decoded result
+                        }
+                    };
 
-                    navigator.mediaDevices.getUserMedia({ video: { deviceId: selectedCamera.deviceId } })
-                        .then(function (stream) {
-                            videoElement.srcObject = stream;
+                    const video = document.getElementById('video');
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
 
-                            const scanner = new Instascan.Scanner({ video: videoElement });
-                            scanner.addListener('scan', function (content) {
-                                alert('Scanned: ' + content);
-                                // You can use the scanned content as needed.
-                            });
+                    video.addEventListener('loadedmetadata', function () {
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                    });
 
-                            scanner.start(selectedCamera);
-                        })
-                        .catch(function (error) {
-                            console.error('Error accessing camera:', error);
-                        });
-                } else {
-                    console.error('No cameras found.');
-                }
-            });
+                    const decodeFrame = function () {
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+
+                        qrcode.decode(imageData, decodeCallback);
+
+                        requestAnimationFrame(decodeFrame);
+                    };
+
+                    decodeFrame();
+                })
+                .catch(function (error) {
+                    console.error('Error accessing camera:', error);
+                });
         } else {
             console.error('getUserMedia is not supported in this browser');
         }
