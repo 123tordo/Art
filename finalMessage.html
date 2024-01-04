@@ -71,7 +71,7 @@
 
         // Check if getUserMedia is available
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } }) // Use front camera
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }) // Use rear camera
                 .then(function (stream) {
                     videoElement.srcObject = stream;
 
@@ -105,4 +105,3 @@
 
 </body>
 </html>
-
