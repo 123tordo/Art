@@ -53,6 +53,17 @@
                 transform: translateY(100%);
             }
         }
+
+        #start-scanning-button {
+            position: absolute;
+            bottom: 20px;
+            background-color: #3498db; /* Blue color for button */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 
     <!-- Add the QuaggaJS library -->
@@ -61,52 +72,59 @@
 <body>
 
 <div id="video-container">
-    <video id="video" autoplay playsinline></video>
+    <video id="video" playsinline></video>
     <div class="scan-line"></div>
+    <button id="start-scanning-button">Start Scanning</button>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const videoElement = document.getElementById('video');
+        const startScanningButton = document.getElementById('start-scanning-button');
 
-        // Check if getUserMedia is available
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function (stream) {
-                    videoElement.srcObject = stream;
+        startScanningButton.addEventListener('click', function () {
+            startScanningButton.style.display = 'none';
 
-                    // Initialize QuaggaJS
-                    Quagga.init({
-                        inputStream: {
-                            name: "Live",
-                            type: "LiveStream",
-                            target: videoElement
-                        },
-                        decoder: {
-                            readers: ["code_128_reader"]
-                        }
-                    }, function (err) {
-                        if (err) {
-                            console.error('Error initializing Quagga:', err);
-                            return;
-                        }
-                        Quagga.start();
+            // Check if getUserMedia is available
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function (stream) {
+                        videoElement.srcObject = stream;
+
+                        // Initialize QuaggaJS
+                        Quagga.init({
+                            inputStream: {
+                                name: "Live",
+                                type: "LiveStream",
+                                target: videoElement
+                            },
+                            decoder: {
+                                readers: ["code_128_reader"]
+                            }
+                        }, function (err) {
+                            if (err) {
+                                console.error('Error initializing Quagga:', err);
+                                return;
+                            }
+                            Quagga.start();
+                        });
+
+                        Quagga.onDetected(function (result) {
+                            alert('Scanned: ' + result.codeResult.code);
+                            // You can navigate to the destination site here
+                            // window.location.href = result.codeResult.code;
+                        });
+                    })
+                    .catch(function (error) {
+                        console.error('Error accessing camera:', error);
                     });
-
-                    Quagga.onDetected(function (result) {
-                        alert('Scanned: ' + result.codeResult.code);
-                        // You can navigate to the destination site here
-                        // window.location.href = result.codeResult.code;
-                    });
-                })
-                .catch(function (error) {
-                    console.error('Error accessing camera:', error);
-                });
-        } else {
-            console.error('getUserMedia is not supported in this browser');
-        }
+            } else {
+                console.error('getUserMedia is not supported in this browser');
+            }
+        });
     });
 </script>
 
 </body>
 </html>
+
