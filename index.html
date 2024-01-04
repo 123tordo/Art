@@ -311,7 +311,7 @@
             questionContainer.innerHTML = `<h1>${currentQuestion.question}</h1>`;
             questionContainer.appendChild(countdownElement);
 
-            // Show the countdown for 15 seconds
+            // Show the countdown for 10 seconds
             let secondsLeft = 10;
             countdownElement.textContent = `Tempo restante: ${secondsLeft}s`;
 
@@ -323,7 +323,7 @@
                 } else {
                     clearInterval(countdownInterval);
 
-                     // Show the answer for 4 seconds
+                     // Show the answer for 3 seconds
                     questionContainer.innerHTML += `<h1 class="answer">Resposta: ${currentQuestion.answer}</h1>`;
                     setTimeout(() => {
                         // Redirect to the final message page
