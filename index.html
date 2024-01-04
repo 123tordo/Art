@@ -323,15 +323,11 @@
                 } else {
                     clearInterval(countdownInterval);
 
-                    // Show the answer for 6 seconds
+                     // Show the answer for 6 seconds
                     questionContainer.innerHTML += `<h1 class="answer">Resposta: ${currentQuestion.answer}</h1>`;
                     setTimeout(() => {
-                        // Show "Lance o dado outra vez" for 10 seconds
-                        questionContainer.innerHTML = "<h1>Lança o dado outra vez e lê o código para um novo desafio</h1>";
-                        setTimeout(() => {
-                            // Turn the complete page to black after 10 seconds
-                            document.body.style.backgroundColor = "black";
-                        }, 10000);
+                        // Redirect to the final message page
+                        window.location.href = "finalMessage.html";
                     }, 10000);
                 }
             }, 1000);
@@ -343,4 +339,3 @@
 
 </body>
 </html>
-
